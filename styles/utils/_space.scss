@@ -1,0 +1,30 @@
+////
+/// _space.scss
+/// Mixin used for consisten spacing throughout the project. Assumes use of the
+/// html { font-size: 62.5% } technique.
+/// @group Utils
+/// @author One Design Company
+////
+
+/// Smallest spacing unit
+$spacing-base: 16 !default;
+
+/// Spacing function
+/// @access private
+/// @param {Number} $multiplier [1] Number to multiply $unit by
+/// @param {Number} $unit [$spacing-base] Smallest spacing unit
+/// @return {String} Spacing in rems
+@function _space($multiplier: 1, $unit: $spacing-base) {
+  @return ($unit * $multiplier) / 10 * 1rem;
+}
+
+/// Spacing mixin, outputs spacing units
+/// @access public
+/// @param {Number} $multiplier [1] Multiple of $spacing-base to output
+/// @param {List} $directions [top] Direction(s) to output spacing
+/// @param {String} $type [margin] Type of space to apply (margin or padding)
+@mixin space($multiplier: 1, $directions: top, $type: margin) {
+  @each $dir in $directions {
+    #{$type}-#{$dir}: space($multiplier);
+  }
+}
