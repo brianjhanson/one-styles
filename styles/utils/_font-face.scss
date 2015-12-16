@@ -1,0 +1,41 @@
+////
+/// _font-face.scss
+/// Outputs @font-face declarations.
+/// @group Utils
+/// @author One Design Company
+////
+
+/// Font face
+/// @author Jonathan Neal
+/// @link https://gist.github.com/jonathantneal/d0460e5c2d5d7f9bc5e6
+/// @param {String} $name Font family name
+/// @param {String} $path Path of font file
+/// @param {Number} $weight [null] Weight of font-face
+/// @param {$Style} $style [null] Style of font-face
+/// @param {List} $exts [eot woff2 woff ttf svg] Formats of the font-face to output
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+  $src: null;
+
+  $extmods: (
+    eot: "?",
+    svg: "#" + str-replace($name, " ", "_")
+  );
+
+  $formats: (
+    otf: "opentype",
+    ttf: "truetype"
+  );
+
+  @each $ext in $exts {
+    $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+    $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+    $src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+  }
+
+  @font-face {
+    font-family: quote($name);
+    font-style: $style;
+    font-weight: $weight;
+    src: $src;
+  }
+}
