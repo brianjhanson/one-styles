@@ -1,0 +1,55 @@
+////
+/// _font-family.scss
+/// Functions related to font family management.
+/// @group Utils
+/// @author One Design Company
+////
+
+/// Font stacks
+/// Map for the font stacks on the site, should be overridden in _variables.scss
+$font-stacks: (
+  body: ('Helvetica Neue', Helvetica, Arial, sans-serif),
+  heading: (Georgia, Times, 'Times New Roman', serif),
+) !default;
+
+//---------------------------------------------------------------
+// Functions
+//---------------------------------------------------------------
+
+/// Font function
+/// Just a shorthand function for getting the font stack from a key
+/// @access private
+/// @param {String} $key Key to find in $map
+/// @param {Map} $map [$font-stacks] Map to search for $key
+@function _font($key, $map: $font-stacks) {
+  @if map_has_key($map, $key) {
+    @return map-get($map, $key);
+  } @else {
+    @warn "Key #{$key} doesn't exist in map #{$map}";
+  }
+}
+
+//---------------------------------------------------------------
+// Mixins
+//---------------------------------------------------------------
+
+/// Font Family
+/// Shorthand for outputting font-family rule with font stack
+/// @access public
+/// @param {String} $key Font stack to output
+@mixin font-family($key) {
+  font-family: _font($key);
+}
+
+//---------------------------------------------------------------
+// Output
+//---------------------------------------------------------------
+
+// If you'd like to output utility classes for use in the project you can
+// uncomment this loop
+// @each $face in map-keys($font-stacks) {
+//   .u-font-family-#{$face} {
+//     @include font-family($face);
+//   }
+// }
+
