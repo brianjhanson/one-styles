@@ -1,0 +1,49 @@
+////
+/// _color.scss
+/// Color related utilities
+/// @group Utils
+/// @author One Design Company
+////
+
+/// Map of colors used in project. Names are up to you but we recommend the
+/// a technique like this https://viget.com/inspire/naming-colors
+$colors: (
+  brand: #66b5c6,
+  text: #444,
+  reverse: #fff,
+  accent: #302614
+) !default;
+
+/// Tint and shade mixers. Tweak this if you want more painterly colors
+$tint-mixer: white !default;
+$shade-mixer: black !default;
+
+/// Color function
+/// @access public
+/// @param {String} $key Color map key
+/// @param {Map} $map [$colors] Map of colors used in project
+@function color($key, $map: $colors) {
+  @if map_has_key($map, $key) {
+    @return map-get($map, $key);
+  } @else {
+    @warn "Key #{$key} doesn't exist in map #{$map}";
+  }
+}
+
+/// Slightly lighten a color
+/// @access public
+/// @param {Color} $color Color to tint
+/// @param {Number} $percentage Percentage of `$color` in returned color
+/// @return {Color}
+@function tint($color, $percentage) {
+  @return mix($tint-mixer, $color, $percentage);
+}
+
+/// Slightly darken a color
+/// @access public
+/// @param {Color} $color Color to shade
+/// @param {Number} $percentage Percentage of `$color` in returned color
+/// @return {Color}
+@function shade($color, $percentage) {
+  @return mix($shade-mixer, $color, $percentage);
+}
