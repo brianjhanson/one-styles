@@ -1,0 +1,24 @@
+////
+/// _base.scss
+/// This file should only contain styles that are applied to bare elements.
+/// @group Base
+/// @author One Design Company
+////
+
+// Border Box
+html {
+  box-sizing: border-box;
+}
+/
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+// Responsive Media
+embed,
+img,
+object,
+video {
+  max-width: 100%;
+  height: auto;
+}
